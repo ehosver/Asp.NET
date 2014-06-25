@@ -1,0 +1,43 @@
+///Kütüphaneleri unutma diye ekledim
+using System.Data;
+using System.Data.SqlClient;
+
+
+
+                SqlConnection baglanti = new SqlConnection();
+                baglanti.ConnectionString = "Data Source=.\\SQLEXPRESS;AttachDbFilename=" + Server.MapPath("App_Data\\VERİTABANİİSMİ.mdf") + ";Integrated Security=True;User Instance=True";
+                SqlCommand sorgu = new SqlCommand();
+
+                sorgu.CommandText = "select * from TABLOADİ";
+                sorgu.Connection = baglanti;
+                baglanti.Open(); 
+                SqlDataReader oku = sorgu.ExecuteReader();
+
+                Literal1.Text = "";
+
+                if (oku.HasRows)
+                {
+		    ///Yatayda Kaç tane Sıra olmasını istiyorsan sıra ekleyebilirsin
+                    Literal1.Text += "<table><tr>";
+                    Literal1.Text += "<td> </td>";
+                    Literal1.Text += "<td> </td>";
+                    Literal1.Text += "<td> </td>";
+                    Literal1.Text += "</tr>";
+
+                    while (oku.Read())
+                    {
+			
+			\\\Burdada Yatayda kaç sıra varsa, resmi liteleyen kodu o kadar yazacaksın
+                        Literal1.Text += "<tr>";
+                        Literal1.Text += "<td><img width=100 height=100 src=" + oku["resim"].ToString().Substring(2) + "></td>";
+                        Literal1.Text += "<td><img width=100 height=100 src=" + oku["resim"].ToString().Substring(2) + "></td>";
+                        Literal1.Text += "<td><img width=100 height=100 src=" + oku["resim"].ToString().Substring(2) + "></td>";
+                        Literal1.Text += "</tr>";
+                    }
+
+                    Literal1.Text += "</table>";
+                }
+                else
+                {
+                    Literal1.Text = "Öğe Bulunamamdı!!!";
+                }
